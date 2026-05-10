@@ -356,11 +356,11 @@
 
 <script>
   // ============================================================
-  // SUPABASE CONNECTION
-  // Replace these two values with your real Supabase credentials
+  // SUPABASE CONNECTION - Values injected by Netlify Edge Function
+  // Do NOT replace these placeholders - they are filled automatically
   // ============================================================
-  const SUPABASE_URL = 'https://bwvnhdobidjbojyvmzxc.supabase.co';
-  const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJ3dm5oZG9iaWRqYm9qeXZtenhjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgzODgwMjIsImV4cCI6MjA5Mzk2NDAyMn0.eNezIG70Tr7KdWikzr9UFsk_vlVwyRn1r9Up9Qi_iFg';
+  const SUPABASE_URL = '__SUPABASE_URL__';
+  const SUPABASE_KEY = '__SUPABASE_KEY__';
   // ============================================================
 
   const { createClient } = supabase;
@@ -851,11 +851,10 @@
   function showToast(msg,cls){const t=document.getElementById('toast');t.textContent=msg;t.className='show '+cls;clearTimeout(t._t);t._t=setTimeout(()=>t.className='',3200);}
 
   // ── INIT ──
-  // ── INIT ──
   document.getElementById('tx-date').value = todayStr();
 
   // Simple password protection
-  const APP_PASS = 'ikatan2024'; // change this to your own password
+  const APP_PASS = '__APP_PASSWORD__'; // change this to your own password
   const AUTH = sessionStorage.getItem('auth');
   if (AUTH !== APP_PASS) {
     const input = prompt('Enter password to access Inventory System:');

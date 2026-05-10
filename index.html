@@ -851,7 +851,22 @@
   function showToast(msg,cls){const t=document.getElementById('toast');t.textContent=msg;t.className='show '+cls;clearTimeout(t._t);t._t=setTimeout(()=>t.className='',3200);}
 
   // ── INIT ──
+  // ── INIT ──
   document.getElementById('tx-date').value = todayStr();
+
+  // Simple password protection
+  const APP_PASS = 'ikatan2024'; // change this to your own password
+  const AUTH = sessionStorage.getItem('auth');
+  if (AUTH !== APP_PASS) {
+    const input = prompt('Enter password to access Inventory System:');
+    if (input === APP_PASS) {
+      sessionStorage.setItem('auth', APP_PASS);
+    } else {
+      document.body.innerHTML = '<div style="text-align:center;margin-top:200px;font-family:Inter,sans-serif"><h2 style="color:#b91c1c">Access Denied</h2><p style="color:#6b7280;margin-top:8px">Incorrect password.</p></div>';
+      throw new Error('Unauthorized');
+    }
+  }
+
   loadAll().then(() => {
     renderMaster(); populateSel(); renderInv(); renderLog(); renderSummary(); updateStats();
   });

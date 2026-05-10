@@ -363,10 +363,18 @@
   const SUPABASE_KEY = '__SUPABASE_KEY__';
   // ============================================================
 
-  const { createClient } = supabase;
-  const db = createClient(SUPABASE_URL, SUPABASE_KEY);
-
+  let db = null;
   let items = {}, stock = {}, txLog = [], activeFilter = 'ALL';
+
+  function initDB() {
+    if (!SUPABASE_URL || SUPABASE_URL === '__SUPABASE_URL__') {
+      console.error('Supabase URL not injected');
+      return false;
+    }
+    const { createClient } = supabase;
+    db = createClient(SUPABASE_URL, SUPABASE_KEY);
+    return true;
+  }
 
   // ── LOADING ──
   function loading(on, msg) {
@@ -853,8 +861,8 @@
   // ── INIT ──
   document.getElementById('tx-date').value = todayStr();
 
-  // Simple password protection
-  const APP_PASS = '__APP_PASSWORD__'; // change this to your own password
+  // Password protection
+  const APP_PASS = '__APP_PASSWORD__';
   const AUTH = sessionStorage.getItem('auth');
   if (AUTH !== APP_PASS) {
     const input = prompt('Enter password to access Inventory System:');
